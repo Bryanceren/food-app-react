@@ -10,9 +10,38 @@ import {
   Typography,
 } from "@mui/material";
 import { amber, red } from "@mui/material/colors";
-import { Fragment } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
+import CartContext from "../../store/cart-context";
 
 const MealItem = (props) => {
+  const cartCtx = useContext(CartContext);
+  const amountRef = useRef();
+  const [amountvalid, setamountvalid] = useState(true);
+  console.log('¿se renderizo');
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const enteredAmount = amountRef.current.value;
+    const enteredAmountNumber = +enteredAmount;
+    if (
+      enteredAmount.trim().length === 0 ||
+      enteredAmountNumber < 1 ||
+      enteredAmountNumber > 5
+    ) {
+      setamountvalid(false);
+      return;
+    }else{
+      if (!amountvalid) {
+        setamountvalid(true);
+      }
+    }
+
+    cartCtx.addItem({
+      id: props.meal.id,
+      name: props.meal.name,
+      amount: enteredAmountNumber,
+      price: props.meal.price,
+    });
+  };
   return (
     <Fragment>
       <ListItem>
@@ -31,14 +60,17 @@ const MealItem = (props) => {
               <TextField
                 label="Amount"
                 size="small"
+                type="number"
+                inputRef={amountRef}
+                min={0}
                 sx={{ maxWidth: 100 }}
                 variant="standard"
                 defaultValue="1"
               />
             </ListItem>
-            <ListItem 
-            >
+            <ListItem>
               <Button
+                onClick={submitHandler}
                 startIcon={<Add />}
                 fullWidth
                 sx={{
@@ -53,6 +85,17 @@ const MealItem = (props) => {
                 Add
               </Button>
             </ListItem>
+            {!amountvalid && (
+              <ListItem disablePadding>
+                <Typography
+                  fontSize={13}
+                  color="text.secondary"
+                  sx={{ display: "inline-block", maxWidth: "120px" }}
+                >
+                  Please enter a valid amount (1-5)
+                </Typography>
+              </ListItem>
+            )}
           </List>
         </ListItemText>
       </ListItem>
