@@ -4,7 +4,6 @@ import {
   Grid,
   IconButton,
   ListItem,
-  ListItemText,
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -29,10 +28,10 @@ const CartItem = (props) => {
         </Grid>
         <Grid item xs={6}>
           <Box display="flex" justifyContent="flex-end">
-            <IconButton>
+            <IconButton onClick={props.onAdd}>
               <Add />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={props.onRemove}>
               <Remove />
             </IconButton>
           </Box>

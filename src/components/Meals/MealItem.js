@@ -1,8 +1,8 @@
 import { Add } from "@material-ui/icons";
 import {
-  Box,
   Button,
   Divider,
+  Grid,
   List,
   ListItem,
   ListItemText,
@@ -17,7 +17,6 @@ const MealItem = (props) => {
   const cartCtx = useContext(CartContext);
   const amountRef = useRef();
   const [amountvalid, setamountvalid] = useState(true);
-  console.log('¿se renderizo');
   const submitHandler = (e) => {
     e.preventDefault();
     const enteredAmount = amountRef.current.value;
@@ -29,7 +28,7 @@ const MealItem = (props) => {
     ) {
       setamountvalid(false);
       return;
-    }else{
+    } else {
       if (!amountvalid) {
         setamountvalid(true);
       }
@@ -45,60 +44,69 @@ const MealItem = (props) => {
   return (
     <Fragment>
       <ListItem>
-        <ListItemText>
-          <Typography fontWeight="bold"> {props.meal.name}</Typography>
-          <Typography color="text.secondary" fontStyle="italic">
-            {props.meal.description}
-          </Typography>
-          <Typography color={amber[700]} fontWeight="bold">
-            {props.meal.price}
-          </Typography>
-        </ListItemText>
-        <ListItemText sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <List disablePadding>
-            <ListItem disablePadding>
-              <TextField
-                label="Amount"
-                size="small"
-                type="number"
-                inputRef={amountRef}
-                min={0}
-                sx={{ maxWidth: 100 }}
-                variant="standard"
-                defaultValue="1"
-              />
-            </ListItem>
-            <ListItem>
-              <Button
-                onClick={submitHandler}
-                startIcon={<Add />}
-                fullWidth
-                sx={{
-                  bgcolor: red[900],
-                  textTransform: "none",
-                  borderRadius: 10,
-                  fontWeight: "bold",
-                }}
-                color="error"
-                variant="contained"
-              >
-                Add
-              </Button>
-            </ListItem>
-            {!amountvalid && (
+        <Grid container>
+          <Grid item xs={12} sm={6}>
+            <Typography fontWeight="bold"> {props.meal.name}</Typography>
+            <Typography color="text.secondary" fontStyle="italic">
+              {props.meal.description}
+            </Typography>
+            <Typography color={amber[700]} fontWeight="bold">
+              {props.meal.price}
+            </Typography>
+          </Grid>
+          <Grid item
+            sx={{
+              display: "flex" ,
+              justifyContent: "flex-end",
+            }}
+            xs={12}
+            sm={6}
+          >
+            <List disablePadding>
               <ListItem disablePadding>
-                <Typography
-                  fontSize={13}
-                  color="text.secondary"
-                  sx={{ display: "inline-block", maxWidth: "120px" }}
-                >
-                  Please enter a valid amount (1-5)
-                </Typography>
+                <TextField
+                  label="Amount"
+                  size="small"
+                  type="number"
+                  inputRef={amountRef}
+                  min={0}
+                  sx={{ maxWidth: 100 }}
+                  variant="standard"
+                  defaultValue="1"
+                />
               </ListItem>
-            )}
-          </List>
-        </ListItemText>
-      </ListItem>
+              <ListItem>
+                <Button
+                  onClick={submitHandler}
+                  startIcon={<Add />}
+                  fullWidth
+                  sx={{
+                    bgcolor: red[900],
+                    textTransform: "none",
+                    borderRadius: 10,
+                    fontWeight: "bold",
+                  }}
+                  color="error"
+                  variant="contained"
+                >
+                  Add
+                </Button>
+              </ListItem>
+              {!amountvalid && (
+                <ListItem disablePadding>
+                  <Typography
+                    fontSize={13}
+                    color="text.secondary"
+                    sx={{ display: "inline-block", maxWidth: "120px" }}
+                  >
+                    Please enter a valid amount (1-5)
+                  </Typography>
+                </ListItem>
+              )}
+            </List>
+          </Grid>
+        </Grid>
+       </ListItem>
       <Divider />
     </Fragment>
   );

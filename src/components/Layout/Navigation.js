@@ -5,15 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import "./gradient.css";
-import { Inbox, Mail, MenuOutlined } from "@material-ui/icons";
-import {
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { MenuOutlined } from "@material-ui/icons";
+
 import Meals from "../../assets/breakfast_fruit_juice_oatmeal_4k_5k_hd_food-1920x1080.jpg";
 import NavigationCart from "./NavigationCart";
 import NavigationDrawer from "./NavigationDrawer";

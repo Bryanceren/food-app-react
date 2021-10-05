@@ -1,10 +1,5 @@
 import { ShoppingCart } from "@material-ui/icons";
-import {
-  Button,
-  Chip,
-  
-  Typography,
-} from "@mui/material";
+import { Button, Chip, Typography } from "@mui/material";
 import { Fragment, useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
 import Cart from "../Cart/Cart";
@@ -53,7 +48,7 @@ const NavigationCart = (props) => {
           label={cartItemsQty}
         />
       </Button>
-      <Cart open={open} handleClose={handleClose}/>
+      <Cart open={open} handleClose={handleClose} />
     </Fragment>
   );
 };

@@ -1,14 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import { amber } from "@mui/material/colors";
+import { Box, Card, CardContent, List, Typography } from "@mui/material";
 import { Fragment } from "react";
 import MealItem from "./MealItem";
 const DUMMY_MEALS = [
@@ -57,11 +47,9 @@ const Meals = (props) => {
             <Typography variant="body2"></Typography>
           </CardContent>
         </Card>
-        <List sx={{ maxWidth: { md: "60%", xs: "90%" }, mx: "auto", my:5 }}>
+        <List sx={{ maxWidth: { md: "60%", xs: "90%" }, mx: "auto", my: 5 }}>
           {DUMMY_MEALS.map((meal) => {
-            return (
-              <MealItem meal={meal} key={meal.id}/>
-            );
+            return <MealItem meal={meal} key={meal.id} />;
           })}
         </List>
       </Box>

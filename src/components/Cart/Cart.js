@@ -1,17 +1,14 @@
-import { Add, Remove } from "@material-ui/icons";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
   List,
   Typography,
 } from "@mui/material";
-import { amber, red } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import { Fragment } from "react";
 import { useContext } from "react";
 import CartContext from "../../store/cart-context";
@@ -20,12 +17,24 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
   const cartItems = (
     <List>
       {cartCtx.items.map((item) => (
         <Fragment key={item.id}>
-          <CartItem name={item.name} price={item.price} amount={item.amount} />
-          <Divider sx={{borderColor:red[900]}}/>
+          <CartItem
+            name={item.name}
+            price={item.price}
+            amount={item.amount}
+            onAdd={cartItemAddHandler.bind(null, item)}
+            onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          />
+          <Divider sx={{ borderColor: red[900] }} />
         </Fragment>
       ))}
     </List>
