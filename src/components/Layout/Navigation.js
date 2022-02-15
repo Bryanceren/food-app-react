@@ -47,8 +47,8 @@ export default function MenuAppBar() {
             src={Meals}
             alt="comida"
             style={{
-              width: "100%",
-              maxHeight: "500px",
+              width: "100vw",
+              maxHeight: "600px",
               objectFit: "cover",
               opacity: 0.8,
               zIndex: -1,

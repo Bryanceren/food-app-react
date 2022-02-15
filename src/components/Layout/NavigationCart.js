@@ -3,10 +3,11 @@ import { Button, Chip, Typography } from "@mui/material";
 import { Fragment, useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
 import Cart from "../Cart/Cart";
-
+import {useSelector} from '@reduxjs'
 const NavigationCart = (props) => {
-  const cartCtx = useContext(CartContext);
-  const cartItemsQty = cartCtx.items.reduce((curNumber, item) => {
+  const cartState = useSelector(state => state);
+
+  const cartItemsQty = cartState.items.reduce((curNumber, item) => {
     return curNumber + item.amount;
   }, 0);
   const [open, setOpen] = useState(false);

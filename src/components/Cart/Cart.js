@@ -13,19 +13,25 @@ import { Fragment } from "react";
 import { useContext } from "react";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
+import { useDispatch, useSelector } from 'react-redux'
+import { cartActions } from "../../store/cartStore";
 const Cart = (props) => {
-  const cartCtx = useContext(CartContext);
-  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
-  const hasItems = cartCtx.items.length > 0;
+
+  const cartState = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const totalAmount = `$${cartState.totalAmount.toFixed(2)}`;
+  const hasItems = cartState.items.length > 0;
+
   const cartItemAddHandler = (item) => {
-    cartCtx.addItem({ ...item, amount: 1 });
+    dispatch(cartActions.add({ ...item, amount: 1 }));
   };
   const cartItemRemoveHandler = (id) => {
-    cartCtx.removeItem(id);
+    dispatch(cartActions.remove(id));
   };
   const cartItems = (
     <List>
-      {cartCtx.items.map((item) => (
+      {cartState.items.map((item) => (
         <Fragment key={item.id}>
           <CartItem
             name={item.name}
@@ -44,7 +50,7 @@ const Cart = (props) => {
       disableEscapeKeyDown
       open={props.open}
       onClose={props.handleClose}
-      onBackdropClick={() => {}}
+      onBackdropClick={() => { }}
       fullWidth={true}
       maxWidth="sm"
       aria-labelledby="alert-dialog-title"
