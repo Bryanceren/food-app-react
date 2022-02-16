@@ -6,8 +6,8 @@ const defaultCartState = {
 };
 
 const cartSlice = createSlice({
-    name: 'counter',
-    defaultCartState,
+    name: 'cart',
+    initialState: defaultCartState,
     reducers: {
         add(state, action) {
             const existingCartItemIndex = state.items.findIndex(
@@ -27,27 +27,26 @@ const cartSlice = createSlice({
             }
             const updatedTotalAmount =
                 state.totalAmount + action.payload.price * action.payload.amount;
-            state = { items: updatedItems, totalAmount: updatedTotalAmount };
+            state.items = updatedItems;
+            state.totalAmount = updatedTotalAmount;
         },
         remove(state, action) {
             const existingCarItemIndex = state.items.findIndex(
-                (item) => item.id === action.id
-              );
-              const existingItem = state.items[existingCarItemIndex];
-              const updatedTotalAmount = state.totalAmount - existingItem.price;
-              let updatedItems;
-              if (existingItem.amount === 1) {
-                updatedItems = state.items.filter((item) => item.id !== action.id);
-              } else {
+                (item) => item.id === action.payload
+            );
+            const existingItem = state.items[existingCarItemIndex];
+            const updatedTotalAmount = state.totalAmount - existingItem.price;
+            let updatedItems;
+            if (existingItem.amount === 1) {
+                updatedItems = state.items.filter((item) => item.id !== action.payload);
+            } else {
                 const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
                 updatedItems = [...state.items];
                 updatedItems[existingCarItemIndex] = updatedItem;
-              }
-          
-              state = {
-                items: updatedItems,
-                totalAmount: updatedTotalAmount,
-              };
+            }
+
+            state.items = updatedItems;
+            state.totalAmount = updatedTotalAmount;
         },
     }
 });

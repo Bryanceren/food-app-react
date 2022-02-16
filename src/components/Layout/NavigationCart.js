@@ -1,26 +1,26 @@
 import { ShoppingCart } from "@material-ui/icons";
 import { Button, Chip, Typography } from "@mui/material";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useCallback, useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
 import Cart from "../Cart/Cart";
-import {useSelector} from '@reduxjs'
+import {useSelector} from 'react-redux'
 const NavigationCart = (props) => {
-  const cartState = useSelector(state => state);
+  const cartState = useSelector(state => state.cart);
 
   const cartItemsQty = cartState.items.reduce((curNumber, item) => {
     return curNumber + item.amount;
   }, 0);
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = useCallback(() => {
     setOpen(true);
-  };
+  },[]);
 
-  const handleClose = (event, reason) => {
+  const handleClose = useCallback((event, reason) => {
     if (reason !== "backdropClick") {
       setOpen(false);
     }
-  };
+  },[]);
   return (
     <Fragment>
       <Button

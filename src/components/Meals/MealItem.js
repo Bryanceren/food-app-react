@@ -10,11 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import { amber, red } from "@mui/material/colors";
-import { Fragment, useContext, useRef, useState } from "react";
-import CartContext from "../../store/cart-context";
-
+import { Fragment, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { cartActions } from '../../store/cartStore';
 const MealItem = (props) => {
-  const cartCtx = useContext(CartContext);
+  const dispatch = useDispatch();
+
   const amountRef = useRef();
   const [amountvalid, setamountvalid] = useState(true);
   const submitHandler = (e) => {
@@ -33,13 +34,12 @@ const MealItem = (props) => {
         setamountvalid(true);
       }
     }
-
-    cartCtx.addItem({
+    dispatch(cartActions.add({
       id: props.meal.id,
       name: props.meal.name,
       amount: enteredAmountNumber,
       price: props.meal.price,
-    });
+    }))
   };
   return (
     <Fragment>
@@ -56,7 +56,7 @@ const MealItem = (props) => {
           </Grid>
           <Grid item
             sx={{
-              display: "flex" ,
+              display: "flex",
               justifyContent: "flex-end",
             }}
             xs={12}
@@ -106,7 +106,7 @@ const MealItem = (props) => {
             </List>
           </Grid>
         </Grid>
-       </ListItem>
+      </ListItem>
       <Divider />
     </Fragment>
   );

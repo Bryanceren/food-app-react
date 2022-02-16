@@ -9,15 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { useContext } from "react";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 import { useDispatch, useSelector } from 'react-redux'
 import { cartActions } from "../../store/cartStore";
 const Cart = (props) => {
-
-  const cartState = useSelector(state => state);
+  console.log('soy el carrito y me acabo de renderizar');
+  const cartState = useSelector(state => state.cart);
   const dispatch = useDispatch();
 
   const totalAmount = `$${cartState.totalAmount.toFixed(2)}`;
@@ -83,4 +83,4 @@ const Cart = (props) => {
     </Dialog>
   );
 };
-export default Cart;
+export default memo(Cart);
